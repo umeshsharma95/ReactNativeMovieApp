@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "172995751358",
+    "project_id": "reactnativefirebase-66b85",
+    "storage_bucket": "reactnativefirebase-66b85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172995751358:android:d368c93468301eb1b79def",
+        "android_client_info": {
+          "package_name": "com.firebaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172995751358-40f4qnvv1johtlfmtcuvcpbh16i51kbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSp61cMQGcafI9sKXlPoJ9r5xuQS3034w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172995751358-40f4qnvv1johtlfmtcuvcpbh16i51kbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172995751358:android:7ab1acdd44de7ce7b79def",
+        "android_client_info": {
+          "package_name": "com.firebasereactnativepractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172995751358-11rf5jqkankdcr1d1bbsao69s9egqiq1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firebasereactnativepractice",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "172995751358-40f4qnvv1johtlfmtcuvcpbh16i51kbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSp61cMQGcafI9sKXlPoJ9r5xuQS3034w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172995751358-40f4qnvv1johtlfmtcuvcpbh16i51kbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172995751358:android:21a0cbf57b9cd1b2b79def",
+        "android_client_info": {
+          "package_name": "com.reactnativemovieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172995751358-u1vq5ri61sshabauitkb67bqnmu9637u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnativemovieapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "172995751358-40f4qnvv1johtlfmtcuvcpbh16i51kbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSp61cMQGcafI9sKXlPoJ9r5xuQS3034w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172995751358-40f4qnvv1johtlfmtcuvcpbh16i51kbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
