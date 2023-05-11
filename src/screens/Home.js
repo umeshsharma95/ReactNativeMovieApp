@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#333',
     padding: 2,
+    paddingBottom: 120,
   },
   button: {
     margin: 20,

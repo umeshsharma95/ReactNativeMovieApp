@@ -8,13 +8,15 @@ import {
 import {crashApp, crashlyticsLog, onSignIn} from './src/utils/Crashlytics';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import {NavigationContainer} from '@react-navigation/native';
-import DrawerNavigation from './src/common.js/navigation/DrawerNavigation';
 import StackNavigation from './src/common.js/navigation/StackNavigation';
+import { Provider, useDispatch } from 'react-redux';
+import { store } from './src/redux/store';
+import { logoutUser, setLoggedInUserData } from './src/redux/actions';
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
   const [deepLinkId, setDeepLinkId] = useState();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     crashlyticsLog('App mounted');
@@ -40,14 +42,15 @@ const App = () => {
     console.log('productId:', productId);
     setDeepLinkId(productId);
   };
+  
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleDynamicLinks);
     return () => unsubscribe();
   }, []);
 
   function onAuthStateChanged(user) {
-    setUser(user);
-    console.log('user', user);
+    dispatch(user?._user ? setLoggedInUserData(user?._user) : logoutUser())
+    console.log('user', user?._user);
     if (initializing) {
       setInitializing(false);
     }
@@ -55,9 +58,19 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <StackNavigation user={user} />
+      <StackNavigation />
     </NavigationContainer>
   );
 };
 
-export default App;
+const AppWrapper = () => {
+
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
+}
+
+export default AppWrapper;
+

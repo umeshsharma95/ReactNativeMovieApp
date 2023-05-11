@@ -30,7 +30,7 @@ const FindMovies = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Enter Movie Name"
@@ -56,6 +56,9 @@ const FindMovies = () => {
 export default FindMovies;
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 120,
+  },
   input: {
     height: 40,
     margin: 12,

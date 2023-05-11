@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
+import { store } from '../redux/store';
+import { addNotificationList } from '../redux/actions';
 
 const requestUserPermission = async () => {
   const authStatus = await messaging().requestPermission();
@@ -28,30 +30,19 @@ const getFCMToken = async () => {
 };
 
 const notificationServices = async () => {
-  let notifications = await AsyncStorage.getItem('notifications');
-  notifications = notifications ? JSON.parse(notifications) : notifications;
-  console.log('notifications', notifications);
   // Assume a message-notification contains a "type" property in the data payload of the screen to open
   messaging().onNotificationOpenedApp(async remoteMessage => {
     console.log(
       'Notification caused app to open from background state:',
       remoteMessage.notification,
     );
-    let data = notifications
-      ? [...notifications, remoteMessage]
-      : [remoteMessage];
-    data = JSON.stringify(data);
-    await AsyncStorage.setItem('notifications', data);
+    store.dispatch(addNotificationList(remoteMessage))
   });
 
   // Foreground Notification handling
   messaging().onMessage(async remoteMessage => {
     console.log('Foreground Notification', remoteMessage);
-    let data = notifications
-      ? [...notifications, remoteMessage]
-      : [remoteMessage];
-    data = JSON.stringify(data);
-    await AsyncStorage.setItem('notifications', data);
+    store.dispatch(addNotificationList(remoteMessage))
   });
 
   // Check whether an initial notification is available
@@ -63,11 +54,7 @@ const notificationServices = async () => {
           'Notification caused app to open from quit state:',
           remoteMessage.notification,
         );
-        let data = notifications
-          ? [...notifications, remoteMessage]
-          : [remoteMessage];
-        data = JSON.stringify(data);
-        await AsyncStorage.setItem('notifications', data);
+        store.dispatch(addNotificationList(remoteMessage))
       }
     });
 };

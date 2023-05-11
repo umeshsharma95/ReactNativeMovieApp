@@ -8,11 +8,11 @@ import Navigation from '../../screens/Navigation';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigation = ({user}) => {
+const StackNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" options={{headerShown: false}}>
-        {props => <DrawerNavigation {...props} user={user} />}
+        {props => <DrawerNavigation {...props} />}
       </Stack.Screen>
       <Stack.Screen name="Movie Page">
         {props => <MoviePage {...props} />}

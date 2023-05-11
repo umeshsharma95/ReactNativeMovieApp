@@ -12,16 +12,18 @@ import axios from '../services/axios';
 import {API_KEY, baseUrlForImage} from '../services/request';
 import {Button} from 'react-native';
 import {generateLink} from '../utils/DynamicLink';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFavoriteList } from '../redux/actions';
 
 const MoviePage = ({route}) => {
+  const favoriteList = useSelector(state => state?.favoriteList || [])
+  const dispatch = useDispatch()
+
   const [movie, setMovie] = useState(null);
-  const [favoriteList, setFavoriteList] = useState([]);
   const {id: movieId} = route.params;
 
   useEffect(() => {
     movieId && fetchMovie();
-    getFavorites();
   }, [movieId]);
 
   const shareProduct = async () => {
@@ -47,24 +49,14 @@ const MoviePage = ({route}) => {
     }
   };
 
-  const getFavorites = async () => {
-    let data = await AsyncStorage.getItem('favoriteMovies');
-    data = data ? JSON.parse(data) : data;
-    setFavoriteList(data || []);
-  };
-
   const addFavorite = async () => {
     let newData = [...favoriteList, movie];
-    setFavoriteList(newData);
-    newData = JSON.stringify(newData);
-    await AsyncStorage.setItem('favoriteMovies', newData);
+    dispatch(setFavoriteList(newData))
   };
 
   const removeFavorite = async () => {
     let newData = favoriteList.filter(item => item.id !== movie.id);
-    setFavoriteList(newData);
-    newData = JSON.stringify(newData);
-    await AsyncStorage.setItem('favoriteMovies', newData);
+    dispatch(setFavoriteList(newData))
   };
 
   const checkFavorite = favoriteList?.some(item => item?.id === movie?.id);

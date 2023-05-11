@@ -40,10 +40,13 @@ const signInUser = async (email, password) => {
     });
 };
 
-const signOut = async () => {
+const signOut = async (callback) => {
   await auth()
     .signOut()
-    .then(() => console.log('User signed out!'))
+    .then(() => {
+      console.log('User signed out!')
+      callback()
+    })
     .catch(error => {
       if (error.code === 'auth/no-current-user') {
         console.log('No user currently signed in');

@@ -1,20 +1,9 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Navigation = () => {
-  const [notifications, setNotifications] = useState();
-
-  useEffect(() => {
-    getNotification();
-  }, []);
-
-  const getNotification = async () => {
-    let data = await AsyncStorage.getItem('notifications');
-    if (data) {
-      setNotifications(JSON.parse(data));
-    }
-  };
+  const notifications = useSelector(state => state.notifications || [])
 
   const CardData = ({notification}) => {
     return (

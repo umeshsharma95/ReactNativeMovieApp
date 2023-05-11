@@ -7,12 +7,18 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {signOut} from '../../utils/Authentication';
 import {useNavigation} from '@react-navigation/native';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../redux/actions';
 
 const CustomDrawer = props => {
   const navigation = useNavigation();
+
+  const handleSignOut = () => {
+    signOut(props.logoutUser)
+  }
   return (
     <View style={{flex: 1}}>
-      {props.user ? (
+      {props.isAuthenticated ? (
         <View style={styles.headerBox}>
           <Image
             source={{
@@ -32,7 +38,7 @@ const CustomDrawer = props => {
               fontFamily: 'Roboto-Medium',
               marginBottom: 5,
             }}>
-            {props?.user?.displayName}
+            {props?.loggedInUser?.displayName}
           </Text>
         </View>
       ) : (
@@ -74,8 +80,8 @@ const CustomDrawer = props => {
             </Text>
           </View>
         </TouchableOpacity>
-        {props.user && (
-          <TouchableOpacity onPress={signOut} style={{paddingVertical: 15}}>
+        {props.isAuthenticated && (
+          <TouchableOpacity onPress={handleSignOut} style={{paddingVertical: 15}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Ionicons name="exit-outline" size={22} />
               <Text
@@ -94,7 +100,16 @@ const CustomDrawer = props => {
   );
 };
 
-export default CustomDrawer;
+const mapStateToProps = (state) => {
+  const {loggedInUser, isAuthenticated} = state
+  return {loggedInUser, isAuthenticated}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {logoutUser: () => dispatch(logoutUser())}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomDrawer)
 
 const styles = StyleSheet.create({
   headerBox: {

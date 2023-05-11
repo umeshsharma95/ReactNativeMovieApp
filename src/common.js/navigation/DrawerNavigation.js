@@ -8,10 +8,10 @@ import CategoryPage from '../../screens/CategoryPage';
 import Layout from './Layout';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigation = ({user}) => {
+const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
-      drawerContent={props => <CustomDrawer {...props} user={user} />}
+      drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerShown: false,
       }}>

@@ -1,4 +1,5 @@
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -7,6 +8,8 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {createUserAccount, signInUser} from '../utils/Authentication';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../redux/actions';
 
 const Login = ({navigation}) => {
   const [state, setState] = useState({
@@ -15,6 +18,8 @@ const Login = ({navigation}) => {
     password: '',
     formType: 'sign_in',
   });
+
+  const dispatch = useDispatch()
 
   const handleChange = (key, value) => {
     setState(prev => ({
@@ -26,21 +31,33 @@ const Login = ({navigation}) => {
   const handlePress = async () => {
     try {
       const {email, password, name, formType} = state;
+      if (!email) {
+        Alert.alert('Please enter email id');
+        return;
+      }
+      if (!password) {
+        Alert.alert('Please enter password');
+        return;
+      }
       if (formType === 'sign_up') {
+        if (!name) {
+          Alert.alert('Please enter name');
+          return;
+        }
         const res = await createUserAccount(email, password);
         console.log('sign_up', res);
         res?.user
           ?.updateProfile({
             displayName: name,
           })
-          .then(result => {
-            if (result) {
-              navigation.navigate('Home');
-            }
+          .then(() => {
+            dispatch(loginUser())
+            navigation.navigate('Home');
           });
       } else {
         const res = await signInUser(email, password);
         if (res) {
+          dispatch(loginUser())
           navigation.navigate('Home');
         }
         console.log('sign_in', res);

@@ -1,26 +1,15 @@
 import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CardView from '../components/CardView';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
 
-const Favorites = ({route}) => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    getFavorites();
-  }, [route]);
-
-  const getFavorites = async () => {
-    let data = await AsyncStorage.getItem('favoriteMovies');
-    data = data ? JSON.parse(data) : data;
-    console.log('data', data);
-    setMovies(data || []);
-  };
+const Favorites = () => {
+  const favoriteList = useSelector(state => state?.favoriteList || [])
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
-        data={movies}
+        data={favoriteList}
         renderItem={({item}) => <CardView {...item} />}
         keyExtractor={item => item.id}
         ListEmptyComponent={() => (
@@ -36,6 +25,9 @@ const Favorites = ({route}) => {
 export default Favorites;
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 120,
+  },
   input: {
     height: 40,
     margin: 12,
